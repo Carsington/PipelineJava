@@ -33,7 +33,7 @@ pipeline {
             // Post = traitement
             post {
                 always {
-                    junit '*/target/surefire-reports/TEST-.xml'
+                    junit '*/target/surefire-reports/TEST-*.xml'
                 }
             }
         }
