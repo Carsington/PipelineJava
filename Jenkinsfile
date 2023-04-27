@@ -18,7 +18,7 @@ pipeline {
             steps {
                 // Get some code from a GitHub repository
                 git branch: "${params.BRANCH}"
-                url: "${params.URL}",
+                url: "${params.URL}"
                 sh "sed -i -e 's@<maven.compiler.target>.*</maven.compiler.target>@<maven.compiler.target>${params.JDK}</maven.compiler.target>@' -e 's@<maven.compiler.source>.*</maven.compiler.source>@<maven.compiler.source>${params.JDK}</maven.compiler.source>@' pom.xml"
             }
         }
