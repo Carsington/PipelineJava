@@ -10,8 +10,8 @@ pipeline {
         stage('Git') {
             steps {
                 // Get some code from a GitHub repository
-                git 'https://github.com/matthcol/movieapp_jdbc.git',
-                    branch 'main'
+                git branch 'main'
+                git 'https://github.com/matthcol/movieapp_jdbc.git'
             }
         }
         stage('Compile') {
@@ -35,7 +35,7 @@ pipeline {
             }
             post {
                 success {
-                    archiveArtifacts 'target/*.jar'
+                    archiveArtifacts 'target/*.[wj]ar'
                 }
             }
         }
