@@ -10,32 +10,36 @@ pipeline {
         stage('Git') {
             steps {
                 // Get some code from a GitHub repository
-                git branch 'main'
-                git 'https://github.com/matthcol/movieapp_jdbc.git'
+                git branch: 'main',
+                url: 'https://github.com/matthcol/movieapp_jdbc.git'
             }
         }
-        stage('Compile') {
-            steps {
+        stage('Compile'){
+            steps{
+                // Run Maven
                 sh "mvn clean compile"
             }
         }
-        stage ('Test') {
-            steps {
+        stage('Test'){
+            steps{
+                // Test
                 sh "mvn test"
             }
+            // Post = traitement
             post {
                 always {
-                    junit '**/target/surefire-reports/TEST-*.xml'
+                    junit '*/target/surefire-reports/TEST-.xml'
                 }
             }
         }
-        stage ('Package') {
-            steps {
+        stage('Package'){
+            steps{
+                // Skip the tests
                 sh "mvn -DskipTests -Dmaven.test.skip package"
             }
             post {
                 success {
-                    archiveArtifacts 'target/*.[wj]ar'
+                    archiveArtifacts 'target/*.jar, target/*.war'
                 }
             }
         }
